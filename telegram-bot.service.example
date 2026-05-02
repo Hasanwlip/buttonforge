@@ -1,0 +1,20 @@
+# Example — install.sh generates /etc/systemd/system/buttonforge.service with real paths.
+# Manual install: copy to /etc/systemd/system/buttonforge.service, fix User/WorkingDirectory/ExecStart, then:
+#   sudo systemctl daemon-reload && sudo systemctl enable --now buttonforge.service
+
+[Unit]
+Description=ButtonForge Telegram bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=YOUR_LINUX_USER
+WorkingDirectory=/path/to/robotshishei
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/path/to/robotshishei/venv/bin/python /path/to/robotshishei/bot.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
